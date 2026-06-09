@@ -19,8 +19,9 @@ class Area():
     def line(self, color, width):
         pygame.draw.rect(mw, color, self.rect, width)
 
-    def collide1(self, x,y):
-        return self.rect.collidepoint(x,y)
+    def collide1(self, rect):
+        return self.rect.colliderect(rect)
+    
     
 
 class Label(Area):
@@ -62,6 +63,9 @@ for i in range(3):
         x += 55
     n -= 1
 
+speed_x = 3
+speed_y = 3
+
 while game:
     pl.fill()
     ball.fill()
@@ -84,6 +88,14 @@ while game:
         pl.rect.x += 3
     if move_left:
         pl.rect.x -= 3
+
+    ball.rect.x += speed_x 
+    ball.rect.y += speed_y 
+
+    if ball.collide1(pl.rect) or ball.rect.y < 0:
+        speed_y *= -1
+    if ball.rect.x > 450 or ball.rect.x < 0:
+        speed_x *= -1
 
     for enemy in enemies:
         enemy.draw()
