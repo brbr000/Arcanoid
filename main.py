@@ -84,9 +84,9 @@ while game:
                 move_right = False
             if event.key == pygame.K_LEFT:
                 move_left = False
-    if move_right:
+    if move_right and pl.rect.x < 400:
         pl.rect.x += 3
-    if move_left:
+    if move_left and pl.rect.x > 0:
         pl.rect.x -= 3
 
     ball.rect.x += speed_x 
@@ -99,7 +99,13 @@ while game:
 
     for enemy in enemies:
         enemy.draw()
-    
+
+    if ball.rect.y  > pl.rect.y + 20:
+        lose = Label(150,160, 50,50,(1,1,100))
+        lose.set_text("YOU LOSE", 70,(255,0,0))
+        lose.draw(0,0)
+        game = False
+
 
     ball.draw()
     pl.draw()
