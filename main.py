@@ -99,10 +99,20 @@ while game:
 
     for enemy in enemies:
         enemy.draw()
+        if enemy.collide1(ball.rect):
+            enemies.remove(enemy)
+            enemy.fill()
+            speed_y *= -1
 
     if ball.rect.y  > pl.rect.y + 20:
         lose = Label(150,160, 50,50,(1,1,100))
         lose.set_text("YOU LOSE", 70,(255,0,0))
+        lose.draw(0,0)
+        game = False
+
+    if len(enemies) == 0:
+        lose = Label(150,160, 50,50,(1,1,100))
+        lose.set_text("YOU WIN", 70,(255,0,0))
         lose.draw(0,0)
         game = False
 
